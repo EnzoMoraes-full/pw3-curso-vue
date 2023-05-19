@@ -2,65 +2,75 @@
 	<div id="app">
 		<h1>Registrar Reclamação</h1>
 		<div class="conteudo">
-			<form class="painel">
+			<form class="painel" v-if="!enviado">
 				<div class="cabecalho">Formulário</div>
 				<Rotulo nome="E-mail">
-					<input type="text">
+					<input type="text" s v-model.lazy.trim="form.email">
 				</Rotulo>
 				<Rotulo nome="Senha">
-					<input type="password">
+					<input type="password" v-model="form.senha">
 				</Rotulo>
 				<Rotulo nome="Idade">
-					<input type="number">
+					<input type="number" v-model.number="form.idade">
 				</Rotulo>
 				<Rotulo nome="Mensagem">
-					<textarea name="" cols="30" rows="5"></textarea>
+					<textarea style="white-space: 5px;" name="" cols="30" rows="5"  v-model="form.mensagem"></textarea >
 				</Rotulo>
 				<Rotulo nome="Características do Problema">
-					<span class="mr-4"><input type="checkbox" value="reproduzivel"> Reproduzível</span>
-					<span><input type="checkbox" value="intermitente"> Intermitente</span>
+					<span class="mr-4"><input type="checkbox" value="reproduzivel" v-model="form.caracteristicas"> Reproduzível</span>
+					<span><input type="checkbox" value="intermitente" v-model="form.caracteristicas"> Intermitente</span>
 				</Rotulo>
 				<Rotulo nome="Qual produto?">
-					<span class="mr-4"><input type="radio"> Web</span>
-					<span class="mr-4"><input type="radio"> Mobile</span>
-					<span><input type="radio"> Outro</span>
+					<span class="mr-4"><input type="radio" v-model="form.produto" :value="1"> Web</span>
+					<span class="mr-4"><input type="radio" v-model="form.produto" :value="2"> Mobile</span>
+					<span><input type="radio" v-model="form.produto" :value="3"> Outro</span>
 				</Rotulo>
 				<Rotulo nome="Prioridade">
-					<select name="" id="">
-						<option></option>
+					<select v-model="form.prioridade">
+						<option v-for="p in prioridades" 
+						:key="p.codigo"
+							:value="p.codigo"
+							>
+						
+						{{p.codigo }} - {{ p.nome }}
+						</option>
 					</select>
 				</Rotulo>
 				<Rotulo nome="Primeira Reclamação?">
-					<Escolha />
+					<Escolha  v-model="form.escolha"/>
 				</Rotulo>
 				<hr>
-				<button>Enviar</button>
+				<button @click.prevent="enviar">Enviar</button>
 			</form>
-			<div class="painel">
+			<div class="painel" v-else>
 				<div class="cabecalho">Resultado</div>
 				<Rotulo nome="E-mail">
-					<span>???</span>
+					<span>{{ form.email }} - {{ typeof form.email }}</span>
 				</Rotulo>
 				<Rotulo nome="Senha">
-					<span>???</span>
+					<span>{{ form.senha }} - {{ typeof form.senha }}</span>
 				</Rotulo>
 				<Rotulo nome="Idade">
-					<span>???</span>
+					<span>{{ form.idade }} - {{ typeof form.idade }}</span>
 				</Rotulo>
 				<Rotulo nome="Mensagem">
-					<span>???</span>
+					<span>{{ form.mensagem }} - {{ typeof form.mensagem }}</span>
 				</Rotulo>
 				<Rotulo nome="Marque as Opções">
-					<span>???</span>
+					<span>
+						<li style="list-style: none;" v-for=" c in form.caracteristicas" :key="c">
+						{{ c }}
+						</li> - {{ typeof form.caracteristicas}}
+					</span>
 				</Rotulo>
 				<Rotulo nome="Qual produto?">
-					<span>???</span>
+					<span>{{ form.produto }} - {{ typeof form.produto }}</span>
 				</Rotulo>
 				<Rotulo nome="Prioridade">
-					<span>???</span>
+					<span>{{ form.propriedade }}</span>
 				</Rotulo>
 				<Rotulo nome="Primeira Reclamação?">
-					<span>???</span>
+					<span>{{ form.escolha }}</span>
 				</Rotulo>
 			</div>
 		</div>
@@ -73,7 +83,41 @@ import Escolha from './components/Escolha.vue'
 
 export default {
 	name: 'app',
-	components: { Rotulo, Escolha }
+	components: { Rotulo, Escolha },
+	data(){
+		return {
+			form:{
+			email: 'teste23@gmail.com',
+			senha: '',
+			idade: 20,
+			mensagem: '',
+			caracteristicas: ["intermitente"],
+			produto: 2,
+			prioridade: '0',
+			codigo: 0,
+			escolha: true,
+		},
+		prioridades: [
+			{codigo: '0', nome: 'Alta'},
+			{codigo: '1', nome: 'Moderado'},
+			{codigo: '2', nome: 'Baixo'},
+			{codigo: '3', nome: 'Minímo'}
+		],
+
+		enviado: false
+
+		}
+	},
+
+	methods:{
+		enviar(){
+			this.enviado = true;
+
+        // Validar formulário
+
+			// Enviar o formulário para o back
+		}
+	}
 }
 </script>
 
