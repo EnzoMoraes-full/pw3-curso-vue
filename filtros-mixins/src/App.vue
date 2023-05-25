@@ -7,7 +7,7 @@
     <h2>Frutas</h2>
     <ul>
       <li v-for="fruta in frutas" :key="fruta">
-        {{frutas}}
+        {{fruta}}
       </li>
     </ul>
     <input type="text" v-model="fruta" @keydown.enter="add"/>
@@ -34,7 +34,7 @@ export default {
     },
     inverter(valor){
      return valor.split('').reverse().join(''); 
-    }
+    },
   },
 
  data(){
@@ -46,17 +46,26 @@ export default {
 </script>
 
 <style>
+* {
+  text-align: center;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
   font-size: 2.5rem;
+  background-color: aquamarine;
+
 }
 
 input{
   font-size: 2.5rem;
+  text-align: center;
+}
+
+li{
+  text-align: center;
+  list-style: none;
+  
 }
 </style>

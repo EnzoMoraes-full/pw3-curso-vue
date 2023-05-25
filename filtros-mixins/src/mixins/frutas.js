@@ -1,7 +1,7 @@
 export default{
     data(){
     return{
-            frutas: ['maça', 'morango', 'kiwi'],
+            frutas: [ 'morango','maça', 'kiwi'],
             fruta: '',
         }
     },

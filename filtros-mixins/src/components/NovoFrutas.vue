@@ -3,7 +3,7 @@
    <h2>Frutas</h2>
     <ul>
       <li v-for="fruta in frutas" :key="fruta">
-        {{frutas}}
+        {{fruta}}
       </li>
     </ul>
     <input type="text" v-model="fruta" @keydown.enter="add"/>
