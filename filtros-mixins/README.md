@@ -1,4 +1,4 @@
-# pw3-curso-vue
+# filtros-mixins
 
 ## Project setup
 ```
